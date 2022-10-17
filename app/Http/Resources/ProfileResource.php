@@ -23,6 +23,8 @@ class ProfileResource extends JsonResource
             'home_phone' => $this->home_phone,
             'personal_phone' => $this->personal_phone,
             'address' => $this->address,
+            
+            
         ];
     }
 }

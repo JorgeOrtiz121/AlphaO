@@ -31,7 +31,10 @@ Route::prefix('alpha')->group(function ()
                 Route::get('/', 'show')->name('profile');
                 Route::post('/', 'store')->name('profile.store');
             });
-            Route::post('/avatar', [AvatarController::class, 'store'])->name('profile.avatar');
+            Route::controller(AvatarController::class)->group(function()
+            {
+                Route::post('/avatar','store')->name('profile.avatar');
+            });
         });
 
         
