@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\Account\AvatarController;
 use App\Http\Controllers\Account\ProfileController;
+use App\Http\Controllers\Banner\BannerController;
+use App\Http\Controllers\Contactanos\ContactanosController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -30,6 +32,26 @@ Route::prefix('alpha')->group(function ()
                 Route::post('/', 'store')->name('profile.store');
             });
             Route::post('/avatar', [AvatarController::class, 'store'])->name('profile.avatar');
+        });
+
+        
+        Route::prefix("banner")->group(function ()
+        {
+            Route::controller(BannerController::class)->group(function () {
+                Route::get('/fotos', 'index');
+                Route::post('/create', 'store');
+                Route::get('/{banner}/destroy', 'destroy');
+            });
+        });
+        Route::prefix("contactos")->group(function ()
+        {
+            Route::controller(ContactanosController::class)->group(function () {
+                Route::get('/', 'index');
+                Route::post('/create', 'store');
+                Route::get('/{contactanos}', 'show');
+                Route::post('/{contactanos}/update', 'update');
+                Route::get('/{contactanos}/destroy', 'destroy');
+            });
         });
     });
 
