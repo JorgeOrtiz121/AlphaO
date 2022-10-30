@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Account;
 
+use App\Helpers\ImageHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ProfileResource;
 use Illuminate\Http\Request;
@@ -19,7 +20,8 @@ class ProfileController extends Controller
         // Se invoca a la función padre
         return $this->sendResponse(message: "User's profile returned successfully", result: [
             'user' => new ProfileResource($user),
-            'avatar' => $user->getAvatarPath()
+            'avatar' => $user->getAvatarPath(),
+            'imagen'=>ImageHelper::getDiskImageUrl($user->getAvatarPath())
         ]);
     }
 
