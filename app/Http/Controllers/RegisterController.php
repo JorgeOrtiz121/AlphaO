@@ -47,14 +47,16 @@ class RegisterController extends Controller
              'password'=>['required','string','min:5','max:20']
              
          ]);
- 
+         $request->request->add([
+            'password' => Hash::make($request['password'])
+        ]);
          
          $role = Role::where('slug', $this->role_slug)->first();
          
          $user = new User($request->all());
          // Crear el password
          //$temp_password = PasswordHelper::generatePassword();
-         
+        
         // $user->password = Hash::make($temp_password);
         
          $role->users()->save($user);

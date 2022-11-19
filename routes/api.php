@@ -4,6 +4,7 @@ use App\Http\Controllers\Account\AvatarController;
 use App\Http\Controllers\Account\ProfileController;
 use App\Http\Controllers\Banner\BannerController;
 use App\Http\Controllers\Contactanos\ContactanosController;
+use App\Http\Controllers\Emotions\IraController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -54,6 +55,17 @@ Route::prefix('alpha')->group(function ()
                 Route::get('/{contactanos}', 'show');
                 Route::post('/{contactanos}/update', 'update');
                 Route::get('/{contactanos}/destroy', 'destroy');
+            });
+        });
+
+        Route::prefix("emotions")->group(function ()
+        {
+            Route::controller(IraController::class)->group(function () {
+                Route::get('/', 'index');
+                Route::post('/create', 'store');
+                Route::get('/{ira}', 'show');
+                Route::post('/{contactanos}/update', 'update');
+                Route::get('/{ira}/destroy', 'destroy');
             });
         });
     });

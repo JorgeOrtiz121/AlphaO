@@ -5,7 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Emotions extends Model
+class Ira extends Model
 {
     use HasFactory;
+    protected $fillable=['Tema','descripcion','video'];
+
 }

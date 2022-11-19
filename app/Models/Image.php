@@ -15,7 +15,7 @@ class Image extends Model
     
 
     // Relación polimórfica uno a uno
-    // Una imagen le pertenece a un usuario, reporte, pabellón y cárcel.
+   
     public function imageable()
     {
         return $this->morphTo();
