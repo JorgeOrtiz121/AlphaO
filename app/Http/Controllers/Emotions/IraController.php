@@ -72,9 +72,22 @@ class IraController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request,Ira $emotion)
     {
         //
+        $ira= $request -> validate([
+            'video' => ['required','file','mimes:mp4','max:2500000'],
+        ]);
+        $file = $ira['video'];
+        $uploadedFileUrl = Cloudinary::uploadVideo($file->getRealPath(),['folder'=>'emotions']);
+        $url = $uploadedFileUrl->getSecurePath();
+
+         $emotion->update([
+            "Tema"=>$request->Tema,
+            "descripcion"=>$request->descripcion,
+            "video"=>$url
+         ]);
+         return $this->sendResponse('Emotion update succesfully',200);
     }
 
     /**
