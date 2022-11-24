@@ -37,7 +37,7 @@ class MusicaOneController extends Controller
     {
         //
         $list1= $request -> validate([
-            'audio' => ['required','file','mimes:mp3','max:1400000000'],
+            'audio' => ['required','file','mimes:mp3','max:1000000000000'],
         ]);
         $list2=$request->validate([
             'imagen'=>['required','image','mimes:jpg,png,jpeg', 'max:10000'],
