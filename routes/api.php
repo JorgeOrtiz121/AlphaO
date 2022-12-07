@@ -6,6 +6,7 @@ use App\Http\Controllers\Banner\BannerController;
 use App\Http\Controllers\Contactanos\ContactanosController;
 use App\Http\Controllers\Emotions\IraController;
 use App\Http\Controllers\ListaReproduccion\MusicaOneController;
+use App\Http\Controllers\Publicidad\PublicidadController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -78,6 +79,17 @@ Route::prefix('alpha')->group(function ()
                 Route::get('/{musicone}', 'show');
                 Route::post('/{musicone}/update', 'update');
                 Route::get('/{musicone}/destroy', 'destroy');
+            });
+        });
+
+        Route::prefix("publicidad")->group(function ()
+        {
+            Route::controller(PublicidadController::class)->group(function () {
+                Route::get('/publ', 'index');
+                Route::post('/create', 'store');
+                Route::get('/{publicidad}', 'show');
+                Route::post('/{publicidad}/update', 'update');
+                Route::get('/{publicidad}/destroy', 'destroy');
             });
         });
     });

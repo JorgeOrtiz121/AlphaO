@@ -20,7 +20,7 @@ class MusicaOneController extends Controller
         //
         $banner=MusicaOne::all();
         return $this->sendResponse(message: 'Banner list generated successfully', result: [
-            'banners' => MusicaOneResource::collection($banner),
+            'music_ones' => MusicaOneResource::collection($banner),
        
         ]);
     }
@@ -84,9 +84,29 @@ class MusicaOneController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, MusicaOne $musicone)
     {
         //
+        $list1= $request -> validate([
+            'audio' => ['required','file','mimes:mp3','max:1000000000000'],
+        ]);
+        $list2=$request->validate([
+            'imagen'=>['required','image','mimes:jpg,png,jpeg', 'max:10000'],
+        ]);
+        $file = $list1['audio'];
+        $file2=$list2['imagen'];
+        $uploadedFileUrl = Cloudinary::uploadFile($file->getRealPath(),['folder'=>'listOne']);
+        $url = $uploadedFileUrl->getSecurePath();
+        $uploadedFileUrl1=Cloudinary::upload($file2->getRealPath(),['folder'=>'AudiosOne']);
+        $url1=$uploadedFileUrl1->getSecurePath();
+        $musicone->update([
+            "tema"=>$request->tema,
+                "genero"=>$request->genero,
+                "descripcion"=>$request->descripcion,
+                "duracion"=>$request->duracion,
+                "imagen"=>$url1,
+                "audio"=>$url,
+        ]);
     }
 
     /**

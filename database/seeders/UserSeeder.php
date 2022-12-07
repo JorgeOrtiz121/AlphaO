@@ -24,7 +24,7 @@ class UserSeeder extends Seeder
         User::factory()->for($rol_admin)->count(5)->create();
 
         $rol_prisoner = Role::where('name', 'client')->first();
-        // 5 usuarios que le pertenecen al rol prisoner
+        // 5 usuarios que le pertenecen al rol client
         // https://laravel.com/docs/9.x/database-testing#belongs-to-relationships
         User::factory()->for($rol_prisoner)->count(5)->create();
 
