@@ -2,11 +2,14 @@
 
 use App\Http\Controllers\Account\AvatarController;
 use App\Http\Controllers\Account\ProfileController;
+use App\Http\Controllers\Administrador\AdminController;
 use App\Http\Controllers\Banner\BannerController;
+use App\Http\Controllers\Comment\CommentsController;
 use App\Http\Controllers\Contactanos\ContactanosController;
 use App\Http\Controllers\Emotions\IraController;
 use App\Http\Controllers\ListaReproduccion\MusicaOneController;
 use App\Http\Controllers\Publicidad\PublicidadController;
+use App\Http\Controllers\RegisterController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -90,6 +93,23 @@ Route::prefix('alpha')->group(function ()
                 Route::get('/{publicidad}', 'show');
                 Route::post('/{publicidad}/update', 'update');
                 Route::get('/{publicidad}/destroy', 'destroy');
+            });
+        });
+
+        Route::prefix("clientes-admin")->group(function ()
+        {
+            Route::controller(AdminController::class)->group(function () {
+                Route::get('/users', 'index');
+                Route::get('/{user}/destroy', 'destroy');
+            });
+        });
+
+        Route::prefix("comments")->group(function ()
+        {
+            Route::controller(CommentsController::class)->group(function () {
+                Route::get('/vercomment', 'index');
+                Route::post('/comment-create','store');
+                Route::get('/{user}/destroy', 'destroy');
             });
         });
     });

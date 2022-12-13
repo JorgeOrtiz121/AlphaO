@@ -91,4 +91,8 @@ class User extends Authenticatable
         return $this->role->slug === $role_slug;
     }
 
+    public function comentario() {
+        return $this->hasOne(Comentarios::class);
+      }
+
 }
