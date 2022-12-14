@@ -2,6 +2,7 @@
   use App\Http\Controllers\Auth\AuthController;
   use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\Client\ClientController;
+use App\Http\Controllers\Comment\CommentsController;
 use App\Http\Controllers\RegisterController;
 use Illuminate\Support\Facades\Route;
 
@@ -19,7 +20,7 @@ Route::post('/forgot-password', [PasswordController::class, 'resendLink'])->name
 // Ruta pública para la redirección del formulario y actualizar los datos
 Route::get('/reset-password/{token}', [PasswordController::class, 'redirectReset'])->name('password.reset');
 Route::post('/register',[ClientController::class,'store'])->name('registerclient');
-
+Route::get('/commentpublic',[CommentsController::class,'index'])->name('publicoment');
 // Ruta pública para el manejo del reseteo de la contraseña del usuario
 Route::post('/reset-password', [PasswordController::class, 'restore'])->name('password.restore');
   Route::middleware(['auth:sanctum'])->group(function ()
