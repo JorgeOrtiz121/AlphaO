@@ -8,6 +8,7 @@ use App\Http\Controllers\Comment\CommentsController;
 use App\Http\Controllers\Contactanos\ContactanosController;
 use App\Http\Controllers\Emotions\IraController;
 use App\Http\Controllers\ListaReproduccion\MusicaOneController;
+use App\Http\Controllers\ListaReproduccion\MusicaThreeController;
 use App\Http\Controllers\ListaReproduccion\MusicaTwoController;
 use App\Http\Controllers\Publicidad\PublicidadController;
 use App\Http\Controllers\RegisterController;
@@ -101,7 +102,7 @@ Route::prefix('alpha')->group(function ()
 
         Route::prefix("musicThree")->group(function ()
         {
-            Route::controller(MusicaTwoController::class)->group(function () {
+            Route::controller(MusicaThreeController::class)->group(function () {
                 Route::get('/lista', 'index');
                 Route::post('/create', 'store');
                 Route::get('/{musicthree}', 'show');
