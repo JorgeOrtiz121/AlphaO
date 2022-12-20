@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\ListaReproduccion;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\MusicaOneResource;
-use App\Models\MusicaOne;
+use App\Http\Resources\MusicThreeResource;
+use App\Models\MusicaThree;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 use Illuminate\Http\Request;
 
-class MusicaOneController extends Controller
+class MusicaThreeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,15 +18,13 @@ class MusicaOneController extends Controller
     public function index()
     {
         //
-        $banner=MusicaOne::all();
-        return $this->sendResponse(message: 'Banner list generated successfully', result: [
-            'music_ones' => MusicaOneResource::collection($banner),
-       
+        $musicathree=MusicaThree::all();
+        return $this->sendResponse(message: 'MusicThree list generated successfully', result: [
+            'music_threes' => MusicThreeResource::collection($musicathree),
         ]);
     }
 
-    
-
+  
     /**
      * Store a newly created resource in storage.
      *
@@ -44,11 +42,11 @@ class MusicaOneController extends Controller
         ]);
         $file = $list1['audio'];
         $file2=$list2['imagen'];
-        $uploadedFileUrl = Cloudinary::uploadFile($file->getRealPath(),['folder'=>'listOne']);
+        $uploadedFileUrl = Cloudinary::uploadFile($file->getRealPath(),['folder'=>'listThree']);
         $url = $uploadedFileUrl->getSecurePath();
-        $uploadedFileUrl1=Cloudinary::upload($file2->getRealPath(),['folder'=>'AudiosOne']);
+        $uploadedFileUrl1=Cloudinary::upload($file2->getRealPath(),['folder'=>'AudiosThree']);
         $url1=$uploadedFileUrl1->getSecurePath();
-         MusicaOne::create(
+         MusicaThree::create(
             [
                 "tema"=>$request->tema,
                 "genero"=>$request->genero,
@@ -58,7 +56,7 @@ class MusicaOneController extends Controller
                 "audio"=>$url,
             ]
          );
-         return $this->sendResponse('MusicOne created succesfully',204);
+         return $this->sendResponse('MusicThree created succesfully',204);
     }
 
     /**
@@ -67,16 +65,15 @@ class MusicaOneController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(MusicaOne $musicone)
+    public function show(MusicaThree $musicthree)
     {
         //
         return $this->sendResponse(message: 'Musics details', result: [
-            'musicsOne' => new MusicaOneResource($musicone)
+            'musicsThree' => new MusicThreeResource($musicthree)
         ]);
     }
 
-   
-
+  
     /**
      * Update the specified resource in storage.
      *
@@ -84,7 +81,7 @@ class MusicaOneController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, MusicaOne $musicone)
+    public function update(Request $request,  MusicaThree $musicthree)
     {
         //
         $list1= $request -> validate([
@@ -99,7 +96,7 @@ class MusicaOneController extends Controller
         $url = $uploadedFileUrl->getSecurePath();
         $uploadedFileUrl1=Cloudinary::upload($file2->getRealPath(),['folder'=>'AudiosOne']);
         $url1=$uploadedFileUrl1->getSecurePath();
-        $musicone->update([
+        $musicthree->update([
             "tema"=>$request->tema,
                 "genero"=>$request->genero,
                 "descripcion"=>$request->descripcion,
@@ -107,8 +104,7 @@ class MusicaOneController extends Controller
                 "imagen"=>$url1,
                 "audio"=>$url,
         ]);
-        return $this->sendResponse("MusicOne update succesfully", 200);
-
+        return $this->sendResponse("MusicThree update succesfully", 200);
     }
 
     /**
@@ -117,11 +113,10 @@ class MusicaOneController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(MusicaOne $musicone)
+    public function destroy(MusicaThree $musicthree)
     {
         //
-        $musicone->delete();
+        $musicthree->delete();
         return $this->sendResponse("MusicOne delete succesfully", 200);
     }
-    
 }

@@ -8,8 +8,11 @@ use App\Http\Controllers\Comment\CommentsController;
 use App\Http\Controllers\Contactanos\ContactanosController;
 use App\Http\Controllers\Emotions\IraController;
 use App\Http\Controllers\ListaReproduccion\MusicaOneController;
+use App\Http\Controllers\ListaReproduccion\MusicaTwoController;
 use App\Http\Controllers\Publicidad\PublicidadController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\Reservaciones\EventoController;
+use App\Http\Controllers\Reservaciones\ReservaController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -85,6 +88,28 @@ Route::prefix('alpha')->group(function ()
             });
         });
 
+        Route::prefix("musicTwo")->group(function ()
+        {
+            Route::controller(MusicaTwoController::class)->group(function () {
+                Route::get('/lista', 'index');
+                Route::post('/create', 'store');
+                Route::get('/{musictwo}', 'show');
+                Route::post('/{musictwo}/update', 'update');
+                Route::get('/{musictwo}/destroy', 'destroy');
+            });
+        });
+
+        Route::prefix("musicThree")->group(function ()
+        {
+            Route::controller(MusicaTwoController::class)->group(function () {
+                Route::get('/lista', 'index');
+                Route::post('/create', 'store');
+                Route::get('/{musicthree}', 'show');
+                Route::post('/{musicthree}/update', 'update');
+                Route::get('/{musicthree}/destroy', 'destroy');
+            });
+        });
+
         Route::prefix("publicidad")->group(function ()
         {
             Route::controller(PublicidadController::class)->group(function () {
@@ -112,6 +137,28 @@ Route::prefix('alpha')->group(function ()
                 Route::get('/{user}/destroy', 'destroy');
             });
         });
+
+        Route::prefix("events")->group(function ()
+        {
+            Route::controller(EventoController::class)->group(function () {
+                Route::get('/eventlist', 'index');
+                Route::post('/event-create','store');
+                Route::get('/evento-get/{evento}', 'show');
+            });
+        });
+         
+
+        Route::prefix("reservas")->group(function ()
+        {
+            Route::controller(ReservaController::class)->group(function () {
+                Route::get('/reservalist', 'index');
+                Route::post('/reserva-create/{evento}','store');
+                Route::get('reservaget/{evento}','show');
+                Route::get('/{reserva}/destroy', 'destroy');
+                Route::get('/misreservs', 'indexuser');
+            });
+        });
+
     });
 
 });

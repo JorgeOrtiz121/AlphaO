@@ -13,18 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('comentarios', function (Blueprint $table) {
+        Schema::create('eventos', function (Blueprint $table) {
             $table->id();
-            $table->string('comentario',500);
-            $table->float('calificacion')->default(1);
+            $table->string('titulo',200);
+            $table->string('imagen',500);
+            $table->string('descripcion',1000);
+            $table->dateTime('evento');
+            $table->integer('contacto');
+            $table->integer('cupos');
             $table->timestamps();
-
-            $table->unsignedBigInteger('user_id');
-
-            $table->foreign('user_id')
-                    ->references('id')
-                    ->on('users')
-                    ->onDelete('cascade');
         });
     }
 
@@ -35,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('comentarios');
+        Schema::dropIfExists('eventos');
     }
 };

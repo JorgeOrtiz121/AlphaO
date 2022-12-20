@@ -13,18 +13,27 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('comentarios', function (Blueprint $table) {
+        Schema::create('reservas', function (Blueprint $table) {
             $table->id();
-            $table->string('comentario',500);
-            $table->float('calificacion')->default(1);
+            $table->boolean('state')->default(true);
+            $table->integer('numero');
             $table->timestamps();
-
+            
             $table->unsignedBigInteger('user_id');
 
             $table->foreign('user_id')
                     ->references('id')
                     ->on('users')
-                    ->onDelete('cascade');
+                    ->onDelete('cascade')
+                    ->onUpdate('cascade');
+
+          $table->unsignedBigInteger('eventos_id');
+
+           $table->foreign('eventos_id')
+                    ->references('id')
+                    ->on('eventos')
+                    ->onDelete('cascade')
+                    ->onUpdate('cascade');
         });
     }
 
@@ -35,6 +44,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('comentarios');
+        Schema::dropIfExists('reservas');
     }
 };

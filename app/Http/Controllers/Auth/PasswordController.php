@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
+use App\Notifications\RecuperarPassword;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -40,6 +42,7 @@ class PasswordController extends Controller
         $token = $request->route('token');
         $email = $request->email;
         $url = "$frontend_url/?token=$token&email=$email";
+       
         return $this->sendResponse(message: 'Successful redirection', result: ['url' => $url]);
     }
 
@@ -88,4 +91,6 @@ class PasswordController extends Controller
         $user->save();
         return $this->sendResponse('Password updated successfully');
     }
+
+    
 }
