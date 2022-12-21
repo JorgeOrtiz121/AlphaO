@@ -34,11 +34,8 @@ class IraController extends Controller
     public function store(Request $request)
     {
         //
-        $ira= $request ->validate([
-            'video' => ['file'],
-        ]);
-        $file = $ira['video'];
-        $result=$request->$file->storeOnCloudinaryAs('folder','emotions');
+
+        // $result=$request->$file->storeOnCloudinaryAs('folder','emotions');
         // $uploadedFileUrl = Cloudinary::uploadVideo($file->getRealPath(),['folder'=>'emotions','resource_type' => 'video',
         // 'public_id' => 'myfolder/mysubfolder/dog_closeup',
         // 'chunk_size' => 6000000,
@@ -49,16 +46,17 @@ class IraController extends Controller
         // $url = $uploadedFileUrl->getSecurePath();
         // dd($url);
         //$file = $ira['video'];
-        //$url=(new UploadApi())->upload($file,['folder'=>'emotions','resource_type'=>'video','chunk_size'=>6000000]);
+        $url=Cloudinary::uploadVideo($request->file('file')->getRealPath())->getSecurePath();
+        dd($url);
       
-         Ira::create(
-            [
-                "Tema"=>$request->Tema,
-                "descripcion"=>$request->descripcion,
-                "video"=>$result
-            ]
-         );
-         return $this->sendResponse('Emotion created succesfully',204);
+        //  Ira::create(
+        //     [
+        //         "Tema"=>$request->Tema,
+        //         "descripcion"=>$request->descripcion,
+        //         "video"=>$url
+        //     ]
+        //  );
+        //  return $this->sendResponse('Emotion created succesfully',204);
     }
     
 
