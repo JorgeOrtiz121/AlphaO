@@ -46,6 +46,7 @@ class IraController extends Controller
           ['width' => 160, 'height' => 100, 'crop' => 'crop', 'gravity' => 'south']], 
         'eager_async' => true, ]);
         $url = $uploadedFileUrl->getSecurePath();
+        dd($url);
         //$file = $ira['video'];
         //$url=(new UploadApi())->upload($file,['folder'=>'emotions','resource_type'=>'video','chunk_size'=>6000000]);
       
