@@ -100,9 +100,28 @@ class EventoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Evento $eventoup)
     {
         //
+        $evento= $request -> validate([
+            'imagen' => ['required', 'image', 'mimes:jpg,png,jpeg', 'max:10000'],
+              
+        ]);
+        $file = $evento['imagen'];
+        $uploadedFileUrl = Cloudinary::upload($file->getRealPath(),['folder'=>'publicidad']);
+        $url = $uploadedFileUrl->getSecurePath(); 
+
+         $eventoup->update([
+            "titulo"=>$request->titulo,
+            "imagen"=>$url,
+            "descripcion"=>$request->descripcion,
+            "evento"=>$request->evento,
+            "contacto"=>$request->contacto,
+            "cupos"=>$request->cupos
+
+         ]);
+         return $this->sendResponse('Event update succesfully',204);
+
     }
 
     /**
@@ -111,8 +130,10 @@ class EventoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Evento $evento)
     {
         //
+        $evento->delete();
+        return $this->sendResponse("Event delete succesfully", 200);
     }
 }
