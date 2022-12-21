@@ -76,7 +76,7 @@ class IraController extends Controller
     {
         //
         $ira= $request -> validate([
-            'video' => ['required','file','mimes:mp4','chunk_size' => 6000000],
+            'video' => ['required','file','mimes:mp4','max:6000000'],
         ]);
         $file = $ira['video'];
         $uploadedFileUrl = Cloudinary::uploadVideo($file->getRealPath(),['folder'=>'emotions']);
