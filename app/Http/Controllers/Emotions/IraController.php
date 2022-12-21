@@ -37,7 +37,7 @@ class IraController extends Controller
             'video' => ['file','mimes:mp4'],
         ]);
         $file = $ira['video'];
-        $uploadedFileUrl = Cloudinary::uploadFile($file->getRealPath(),['folder'=>'emotions','resource_type'=>'video','chunk_size'=>6000000]);
+        $uploadedFileUrl = Cloudinary::uploadVideo($file->getRealPath(),['folder'=>'emotions','resource_type'=>'video','chunk_size'=>6000000]);
         $url = $uploadedFileUrl->getSecurePath();
          Ira::create(
             [
