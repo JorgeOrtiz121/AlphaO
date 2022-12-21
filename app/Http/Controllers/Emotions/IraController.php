@@ -46,7 +46,7 @@ class IraController extends Controller
         // $url = $uploadedFileUrl->getSecurePath();
         // dd($url);
         //$file = $ira['video'];
-        $url=Cloudinary::uploadVideo($request->file('file')->getRealPath())->getSecurePath();
+        $url=Cloudinary::upload($request->file('file')->getRealPath())->getSecurePath();
         dd($url);
       
         //  Ira::create(
