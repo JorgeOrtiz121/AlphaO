@@ -38,15 +38,16 @@ class IraController extends Controller
             'video' => ['file'],
         ]);
         $file = $ira['video'];
-        $uploadedFileUrl = Cloudinary::uploadVideo($file->getRealPath(),['folder'=>'emotions','resource_type' => 'video',
-        'public_id' => 'myfolder/mysubfolder/dog_closeup',
-        'chunk_size' => 6000000,
-        'eager' => [
-          ['width' => 300, 'height' => 300, 'crop' => 'pad'], 
-          ['width' => 160, 'height' => 100, 'crop' => 'crop', 'gravity' => 'south']], 
-        'eager_async' => true, ]);
-        $url = $uploadedFileUrl->getSecurePath();
-        dd($url);
+        $result=$request->$file->storeOnCloudinaryAs('folder','emotions');
+        // $uploadedFileUrl = Cloudinary::uploadVideo($file->getRealPath(),['folder'=>'emotions','resource_type' => 'video',
+        // 'public_id' => 'myfolder/mysubfolder/dog_closeup',
+        // 'chunk_size' => 6000000,
+        // 'eager' => [
+        //   ['width' => 300, 'height' => 300, 'crop' => 'pad'], 
+        //   ['width' => 160, 'height' => 100, 'crop' => 'crop', 'gravity' => 'south']], 
+        // 'eager_async' => true, ]);
+        // $url = $uploadedFileUrl->getSecurePath();
+        // dd($url);
         //$file = $ira['video'];
         //$url=(new UploadApi())->upload($file,['folder'=>'emotions','resource_type'=>'video','chunk_size'=>6000000]);
       
@@ -54,7 +55,7 @@ class IraController extends Controller
             [
                 "Tema"=>$request->Tema,
                 "descripcion"=>$request->descripcion,
-                "video"=>$url
+                "video"=>$result
             ]
          );
          return $this->sendResponse('Emotion created succesfully',204);
