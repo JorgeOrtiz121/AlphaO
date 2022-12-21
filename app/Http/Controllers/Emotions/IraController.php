@@ -33,8 +33,8 @@ class IraController extends Controller
     public function store(Request $request)
     {
         //
-        $ira= $request -> validate([
-            'video' => ['required','file','mimes:mp4','max:2500000'],
+        $ira= $request ->validate([
+            'video' => ['file','mimes:mp4'],
         ]);
         $file = $ira['video'];
         $uploadedFileUrl = Cloudinary::uploadVideo($file->getRealPath(),['folder'=>'emotions']);
