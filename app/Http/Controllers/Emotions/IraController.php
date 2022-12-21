@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Emotions;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\IraResource;
 use App\Models\Ira;
+use Cloudinary\Api\Upload\UploadApi;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 use Illuminate\Http\Request;
 
@@ -37,8 +38,8 @@ class IraController extends Controller
             'video' => ['file','mimes:mp4'],
         ]);
         $file = $ira['video'];
-        $uploadedFileUrl = Cloudinary::uploadVideo($file->getRealPath(),['folder'=>'emotions','resource_type'=>'video','chunk_size'=>6000000]);
-        $url = $uploadedFileUrl->getSecurePath();
+        $url=(new UploadApi())->upload($file->getRealPath(),['folder'=>'emotions','resource_type'=>'video','chunk_size'=>6000000]);
+      
          Ira::create(
             [
                 "Tema"=>$request->Tema,
@@ -90,6 +91,8 @@ class IraController extends Controller
          return $this->sendResponse('Emotion update succesfully',200);
     }
 
+
+       
     /**
      * Remove the specified resource from storage.
      *
