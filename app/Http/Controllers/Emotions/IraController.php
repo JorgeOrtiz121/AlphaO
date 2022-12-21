@@ -38,7 +38,7 @@ class IraController extends Controller
             'video' => ['file','mimes:mp4'],
         ]);
         $file = $ira['video'];
-        $url=(new UploadApi())->upload($file->getRealPath(),['folder'=>'emotions','resource_type'=>'video','chunk_size'=>6000000]);
+        $url=(new UploadApi())->upload($file->getRealPath(),['folder'=>'emotions','resource_type'=>'video','chunk_size'=>1500000]);
       
          Ira::create(
             [
